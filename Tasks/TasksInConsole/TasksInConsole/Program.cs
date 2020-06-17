@@ -8,17 +8,15 @@ namespace TasksInConsole
     class Program
     {
         #region Private Members
-
         /// <summary>
         /// The event finished callback for the Thread event example
         /// </summary>
-        private static event Action EventFinished = () => { };
+        private static event Action EventFinished;// = () => { };
 
         /// <summary>
         /// Whether to run the thread examples
         /// </summary>
-        private static bool RunThreadExamples = false;
-
+        private static bool RunThreadExamples = true;
         #endregion
 
         static void Main(string[] args)
@@ -265,7 +263,7 @@ namespace TasksInConsole
             Log("Before sync thread");
 
             // Website to fetch
-            var website = "http://www.google.co.uk";
+            var website = "http://www.devexpress.com";
 
             // Download the string
             WebDownloadString(website);
@@ -572,7 +570,7 @@ namespace TasksInConsole
 
             Log("Before ThrowAwait");
 
-            var crashedTask = ThrowAwait(true);
+            var crashedTask = ThrowAwaitAsync(true);
 
             // Did it crash?
             var isFaulted = crashedTask.IsFaulted;
@@ -598,7 +596,7 @@ namespace TasksInConsole
 
             Log("Before ThrowVoid");
 
-            ThrowAwaitVoid(true);
+            ThrowAwaitVoidAsync(true);
 
             Log("After ThrowVoid");
 
@@ -608,7 +606,6 @@ namespace TasksInConsole
         }
 
         #region Helper Methods
-
         /// <summary>
         /// Output a message with the current thread ID appended
         /// </summary>
@@ -618,11 +615,9 @@ namespace TasksInConsole
             // Write line
             Console.WriteLine($"{message} [{Thread.CurrentThread.ManagedThreadId}]");
         }
-
         #endregion
 
         #region Thread Methods
-
         /// <summary>
         /// Shows an event-based thread callback via a method
         /// </summary>
@@ -643,11 +638,9 @@ namespace TasksInConsole
 
             }).Start();
         }
-
         #endregion
 
         #region Task Example Methods
-
         /// <summary>
         /// Downloads a string from a website URL sychronously
         /// </summary>
@@ -738,7 +731,7 @@ namespace TasksInConsole
         /// </summary>
         /// <param name="before">Throws the exception before an await</param>
         /// <returns></returns>
-        private static async Task ThrowAwait(bool before)
+        private static async Task ThrowAwaitAsync(bool before)
         {
             if (before)
                 throw new ArgumentException("Oopps");
@@ -753,7 +746,7 @@ namespace TasksInConsole
         /// </summary>
         /// <param name="before">Throws the exception before an await</param>
         /// <returns></returns>
-        private static async void ThrowAwaitVoid(bool before)
+        private static async void ThrowAwaitVoidAsync(bool before)
         {
             if (before)
                 throw new ArgumentException("Oopps");
